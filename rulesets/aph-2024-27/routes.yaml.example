@@ -1,0 +1,19 @@
+# Application category → stage route (PLACEHOLDERS; verify against the APH)
+categories:
+  NEW_INSTITUTION:
+    route: [SUBMITTED, SCRUTINY, EVC, COMMITTEE, DECISION]
+  EOA:
+    route: [SUBMITTED, SCRUTINY, DECISION]
+  INTAKE_INCREASE:
+    route: [SUBMITTED, SCRUTINY, EVC, COMMITTEE, DECISION]
+  DEFICIENCY_LOOP:
+    # allowed detour from SCRUTINY
+    route: [SCRUTINY, DEFICIENCY, RE_SCRUTINY]
+stages:
+  SUBMITTED:   { sla_days: 3,  owner_role: officer }
+  SCRUTINY:    { sla_days: 15, owner_role: officer }
+  DEFICIENCY:  { sla_days: 15, owner_role: institution }
+  RE_SCRUTINY: { sla_days: 10, owner_role: officer }
+  EVC:         { sla_days: 30, owner_role: regional_head }
+  COMMITTEE:   { sla_days: 10, owner_role: national_head }
+  DECISION:    { sla_days: 5,  owner_role: national_head }

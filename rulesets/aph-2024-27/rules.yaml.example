@@ -1,0 +1,33 @@
+# Example rules (ASSUMED — not verified AICTE requirements)
+- id: R-DOC-REQUIRED-AFFIDAVIT
+  version: 1
+  status: ASSUMED
+  clause_ref: null
+  severity: major
+  applies_to: [NEW_INSTITUTION, EOA]
+  logic:
+    all:
+      - { fact: "documents.affidavit_2.present", op: "eq", value: true }
+  message: "Affidavit 2 not found among uploaded documents"
+
+- id: R-DOC-LEASE-VALIDITY
+  version: 1
+  status: ASSUMED
+  clause_ref: null
+  severity: major
+  applies_to: [NEW_INSTITUTION]
+  logic:
+    all:
+      - { fact: "documents.lease.valid_until", op: "gte", value_from: "config.min_lease_end_date" }
+  message: "Lease validity is shorter than the configured minimum"
+
+- id: R-DOC-DUPLICATE-HASH
+  version: 1
+  status: ASSUMED
+  clause_ref: null
+  severity: warn
+  applies_to: [ALL]
+  logic:
+    all:
+      - { fact: "documents.any_duplicate_sha256", op: "eq", value: false }
+  message: "A document with the same hash exists on another application"
